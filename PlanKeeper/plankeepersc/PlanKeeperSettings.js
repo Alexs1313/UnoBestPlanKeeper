@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import PlanKeeperBackground from '../plankeepercmp/PlanKeeperBackground';
+import { useNavigation } from '@react-navigation/native';
+import { useStore } from '../plankeeperst/planKeeperContext';
 import {
   Image,
+  Linking,
   Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import PlanKeeperBackground from '../plankeepercmp/PlanKeeperBackground';
-import { useNavigation } from '@react-navigation/native';
-import { useStore } from '../plankeeperst/planKeeperContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
 
@@ -61,9 +62,11 @@ const PlanKeeperSettings = () => {
     try {
       await AsyncStorage.removeItem('tasks');
       setTasks([]);
-      Toast.show({
-        text1: 'Data cleared successfully! ',
-      });
+      if (planKeeperNotifications) {
+        Toast.show({
+          text1: 'Data cleared successfully! ',
+        });
+      }
     } catch (error) {
       console.error('Error', error);
     }
@@ -161,7 +164,11 @@ const PlanKeeperSettings = () => {
           <Image source={require('../../assets/images/plankeeperdel.png')} />
         </TouchableOpacity>
         {Platform.OS === 'ios' && (
-          <TouchableOpacity style={styles.keeperbtn} activeOpacity={0.7}>
+          <TouchableOpacity
+            style={styles.keeperbtn}
+            activeOpacity={0.7}
+            onPress={() => Linking.openURL('')}
+          >
             <Text style={styles.keeperbtntxt}>Share the app</Text>
             <Image source={require('../../assets/images/plankeepershr.png')} />
           </TouchableOpacity>
