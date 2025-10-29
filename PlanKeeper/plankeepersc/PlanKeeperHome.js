@@ -27,6 +27,18 @@ const PlanKeeperHome = () => {
     }
   };
 
+  const formatPlanKeeperDate = date => {
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const year = String(d.getFullYear()).slice(-2);
+    return `${day}.${month}.${year}`;
+  };
+
+  const today = formatPlanKeeperDate(new Date());
+
+  const todayTasks = tasks.filter(task => task.date === today);
+
   return (
     <PlanKeeperBackground>
       <View style={styles.headercont}>
@@ -88,7 +100,7 @@ const PlanKeeperHome = () => {
       <View style={styles.taskscont}>
         <Text style={styles.keepertasktxt}>Today task list</Text>
 
-        {tasks.length === 0 && (
+        {todayTasks.length === 0 && (
           <Text
             style={[styles.keepertasktxt, { color: '#fff', marginTop: 80 }]}
           >
@@ -96,7 +108,7 @@ const PlanKeeperHome = () => {
           </Text>
         )}
 
-        {tasks.map(task => (
+        {todayTasks.map(task => (
           <View style={styles.tasklistcont} key={task.id}>
             <TouchableOpacity
               onPress={() => toggleTaskDone(task.id)}
