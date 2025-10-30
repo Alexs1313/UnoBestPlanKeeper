@@ -167,7 +167,11 @@ const PlanKeeperSettings = () => {
           <TouchableOpacity
             style={styles.keeperbtn}
             activeOpacity={0.7}
-            onPress={() => Linking.openURL('')}
+            onPress={() =>
+              Linking.openURL(
+                'https://apps.apple.com/us/app/uno-best-plan-keeper/id6754691553',
+              )
+            }
           >
             <Text style={styles.keeperbtntxt}>Share the app</Text>
             <Image source={require('../../assets/images/plankeepershr.png')} />
