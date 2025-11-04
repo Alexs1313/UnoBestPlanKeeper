@@ -1,6 +1,13 @@
 import PlanKeeperBackground from '../plankeepercmp/PlanKeeperBackground';
 import { useCallback } from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useStore } from '../plankeeperst/planKeeperContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -44,10 +51,18 @@ const PlanKeeperHome = () => {
       <View style={styles.headercont}>
         <View style={{ alignItems: 'center' }}>
           <Text style={styles.keepertitle}>Main menu</Text>
-          <Image
-            source={require('../../assets/images/plankeeperonblogo.png')}
-            style={styles.headerlogo}
-          />
+
+          {Platform.OS === 'ios' ? (
+            <Image
+              source={require('../../assets/images/plankeeperonblogo.png')}
+              style={styles.headerlogo}
+            />
+          ) : (
+            <Image
+              source={require('../../assets/images/andricon.png')}
+              style={styles.headerlogo}
+            />
+          )}
 
           <View style={styles.keeperunderline} />
 

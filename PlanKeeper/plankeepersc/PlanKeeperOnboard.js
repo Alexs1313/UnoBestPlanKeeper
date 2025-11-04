@@ -1,4 +1,11 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import PlanKeeperBackground from '../plankeepercmp/PlanKeeperBackground';
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -26,19 +33,43 @@ const PlanKeeperOnboard = () => {
         <View
           style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}
         >
-          <Image source={require('../../assets/images/keeperloaderlogo.png')} />
+          {Platform.OS === 'ios' ? (
+            <Image
+              source={require('../../assets/images/keeperloaderlogo.png')}
+            />
+          ) : (
+            <Image
+              source={require('../../assets/images/andricon.png')}
+              style={{ width: 167, height: 167, borderRadius: 32 }}
+            />
+          )}
         </View>
       ) : (
         <>
           {planKeeperSlide === 0 && (
             <View style={styles.slidecont}>
               <Text style={styles.keepertitle}>
-                Welcome to One Best Plan Keeper!
+                {Platform.OS === 'ios'
+                  ? ' Welcome to One Best Plan Keeper!'
+                  : ' Welcome to 888 Best Plan Keeper!'}
               </Text>
-              <Image
-                source={require('../../assets/images/plankeeperonblogo.png')}
-                style={{ marginTop: 70 }}
-              />
+
+              {Platform.OS === 'ios' ? (
+                <Image
+                  source={require('../../assets/images/keeperloaderlogo.png')}
+                  style={{ marginTop: 70 }}
+                />
+              ) : (
+                <Image
+                  source={require('../../assets/images/andricon.png')}
+                  style={{
+                    width: 155,
+                    height: 155,
+                    borderRadius: 32,
+                    marginTop: 70,
+                  }}
+                />
+              )}
               <Text style={styles.keeperdescription}>
                 Your new daily partner for planning, achieving, and staying
                 motivated.
@@ -56,9 +87,20 @@ const PlanKeeperOnboard = () => {
           {planKeeperSlide > 0 && (
             <>
               <View style={styles.keeperheader}>
-                <Image
-                  source={require('../../assets/images/plankeeperonblogo.png')}
-                />
+                {Platform.OS === 'ios' ? (
+                  <Image
+                    source={require('../../assets/images/keeperloaderlogo.png')}
+                  />
+                ) : (
+                  <Image
+                    source={require('../../assets/images/andricon.png')}
+                    style={{
+                      width: 155,
+                      height: 155,
+                      borderRadius: 32,
+                    }}
+                  />
+                )}
               </View>
               <View style={{ alignItems: 'center' }}>
                 <Text
